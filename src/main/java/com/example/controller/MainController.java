@@ -18,6 +18,7 @@ import java.net.URL;
 public class MainController {
 
     public static final String UPLOAD_AUDIO_LINK = "https://mirror-chat.mybluemix.net/api/uploadAudio";
+    private byte[] response;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -25,7 +26,7 @@ public class MainController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody void sendWAV(@RequestBody byte[] wav, HttpServletResponse servletResponse) throws IOException {
+    public @ResponseBody void sendWAV(@RequestBody byte[] wav) throws IOException {
         URL url = new URL(UPLOAD_AUDIO_LINK);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         httpConn.setUseCaches(false);
@@ -42,10 +43,16 @@ public class MainController {
         int status = httpConn.getResponseCode();
         if (status == HttpURLConnection.HTTP_OK) {
             InputStream responseStream = new BufferedInputStream(httpConn.getInputStream());
-            byte[] bytes = getByteArrayFromInputStream(responseStream);
-            IOUtils.copy(new ByteArrayInputStream(bytes), servletResponse.getOutputStream());
-            servletResponse.flushBuffer();
+            response = getByteArrayFromInputStream(responseStream);
         }
+    }
+
+
+    @RequestMapping(path = "getResponseAudio", method = RequestMethod.GET)
+    public void getTranslationAudio(HttpServletResponse servletResponse) throws IOException {
+        byte[] bytes = response;
+        IOUtils.copy(new ByteArrayInputStream(bytes), servletResponse.getOutputStream());
+        servletResponse.flushBuffer();
     }
 
     private static byte[] getByteArrayFromInputStream(InputStream is) throws IOException {

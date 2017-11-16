@@ -113,8 +113,8 @@ $(document).ready(function () {
                 data: blob,
                 contentType: false,
                 processData: false,
-                success: function (data) {
-                    var audio = new Audio(data);
+                success: function () {
+                    var audio = new Audio(window.location.href + "/getResponseAudio");
                     audio.play();
                 }
             });
