@@ -13,6 +13,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.example.utils.IOUtility.getByteArrayFromInputStream;
+
 @Controller
 @RequestMapping(path = "/")
 public class MainController {
@@ -20,12 +22,21 @@ public class MainController {
     public static final String UPLOAD_AUDIO_LINK = "https://mirror-chat.mybluemix.net/api/uploadAudio";
     private byte[] response;
 
+    /**
+     * Method to get index page
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    /**
+     * Method to upload user's speech to STT
+     *
+     * @param wav
+     *            bytearray of wav with user's speech
+     */
+    @RequestMapping(path = "upload", method = RequestMethod.POST)
     public @ResponseBody void sendWAV(@RequestBody byte[] wav) throws IOException {
         URL url = new URL(UPLOAD_AUDIO_LINK);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -43,26 +54,23 @@ public class MainController {
         int status = httpConn.getResponseCode();
         if (status == HttpURLConnection.HTTP_OK) {
             InputStream responseStream = new BufferedInputStream(httpConn.getInputStream());
+            // saving bytearray of response-wav
             response = getByteArrayFromInputStream(responseStream);
         }
+        // TODO: add exception handling
     }
 
 
+    /**
+     * Method to return bot's answer to UI on demand
+     *
+     */
     @RequestMapping(path = "getResponseAudio", method = RequestMethod.GET)
     public void getTranslationAudio(HttpServletResponse servletResponse) throws IOException {
-        byte[] bytes = response;
-        IOUtils.copy(new ByteArrayInputStream(bytes), servletResponse.getOutputStream());
+        // I know that it is not the best implementation, obviously. I just wasn't able to make js
+        // playing wav from bytes properly. I believe that with some extra time I would be able to do this.
+        IOUtils.copy(new ByteArrayInputStream(response), servletResponse.getOutputStream());
         servletResponse.flushBuffer();
     }
 
-    private static byte[] getByteArrayFromInputStream(InputStream is) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int nRead;
-        byte[] data = new byte[16384];
-        while ((nRead = is.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-        buffer.flush();
-        return buffer.toByteArray();
-    }
 }

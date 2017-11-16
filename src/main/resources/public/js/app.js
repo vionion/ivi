@@ -108,7 +108,7 @@ $(document).ready(function () {
     $(document).on("click", "#save:not(.disabled)", function () {
         function upload(blob) {
             $.ajax({
-                url: window.location.href,
+                url: window.location.href + "/upload",
                 type: 'POST',
                 data: blob,
                 contentType: false,
