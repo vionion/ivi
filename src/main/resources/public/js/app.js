@@ -112,7 +112,11 @@ $(document).ready(function () {
                 type: 'POST',
                 data: blob,
                 contentType: false,
-                processData: false
+                processData: false,
+                success: function (data) {
+                    var audio = new Audio(data);
+                    audio.play();
+                }
             });
         }
         Fr.voice.export(upload, "blob");
