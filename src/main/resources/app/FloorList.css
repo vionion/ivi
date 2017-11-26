@@ -1,0 +1,29 @@
+.floorButton {
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    text-shadow: 1px 1px 8px #666666;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 40px;
+    background: #bdbdbd;
+    padding: 4px 20px 4px 20px;
+    border: solid #848b8f 7px;
+    text-decoration: none;
+    min-width: 90px;
+
+    margin: 8px;
+}
+
+.floorButton:focus {
+    outline: 0;
+}
+
+.selected {
+    border: solid red 7px;
+}
+
+.center {
+    display: table;
+    margin: 15px auto;
+}

@@ -1,0 +1,50 @@
+.center {
+    display: table;
+    margin: 30px auto;
+}
+
+
+.floorIndicator {
+    display: block;
+    width: 450px;
+    height: 250px;
+    background-color: #111111;
+    border-radius: 30px;
+    box-shadow: 0 0 10px #000000;
+    text-align: center;
+}
+.textFloor {
+    vertical-align: middle;
+
+    color: red;
+
+    font-family: 'digital-7regular', Arial, sans-serif;
+    font-weight:normal;
+    font-style:normal;
+    font-size: 18em;
+}
+
+.textDirection {
+    vertical-align: middle;
+
+    color: red;
+
+    font-family: 'digital-7regular', Arial, sans-serif;
+    font-weight:normal;
+    font-style:normal;
+    font-size: 10em;
+}
+
+.rotatedUp {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    position:absolute;
+    margin-top: 50px;
+}
+
+.rotatedDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    position:absolute;
+    margin-top: 50px;
+}

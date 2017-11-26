@@ -1,0 +1,53 @@
+button {
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: Arial;
+
+    color: #ffffff;
+    font-size: 30px;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+    min-width: 350px;
+}
+
+.buttonStart {
+    background: #3498db;
+}
+
+.buttonStart:hover {
+    background: #2980b9;
+}
+
+.buttonStop {
+    background: red;
+}
+
+.buttonStop:hover {
+    background: #e30000;
+}
+
+.buttonStop:disabled {
+    background: gray;
+}
+
+p {
+    font-family: Arial;
+    color: gray;
+    font-size: 25px;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: #2980b9;
+}
+
+.center {
+    display: table;
+    margin: 10px auto;
+}
+
+
