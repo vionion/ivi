@@ -1,1 +1,1 @@
-web: java -jar target/spring-boot-heroku-1.0.jar
+web: java -jar target/kone-app-1.0.jar
